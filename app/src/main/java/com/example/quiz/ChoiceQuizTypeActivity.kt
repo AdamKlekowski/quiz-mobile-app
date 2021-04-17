@@ -74,6 +74,16 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
         difficultyArraySpinner.add("hard")
         difficultySpinner.adapter = ArrayAdapter(this,
             android.R.layout.simple_spinner_item, difficultyArraySpinner)
+        difficultySpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                selectedDifficulty =  difficultyArraySpinner[position]
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
 
 
         playButton = findViewById(R.id.play_btn)
