@@ -3,9 +3,8 @@ package com.example.quiz
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import android.widget.TextView
+import kotlin.system.exitProcess
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         exitBtn = findViewById(R.id.exitButton)
         exitBtn.setOnClickListener {
-            finish()
+            android.os.Process.killProcess(android.os.Process.myPid())
         }
     }
 }

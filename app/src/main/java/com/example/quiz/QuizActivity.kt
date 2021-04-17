@@ -1,10 +1,12 @@
 package com.example.quiz
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var question: TextView
@@ -59,11 +61,15 @@ class QuizActivity : AppCompatActivity() {
 
         nextButton = findViewById(R.id.next_btn)
         nextButton.setOnClickListener {
-            no += 1
-            if (no > Data.questions.size) {
-                TODO()
+            if (no >= Data.questions.size-1) {
+                val intent = Intent(this, ResultsActivity::class.java).apply {}
+                intent.putExtra("points", points)
+                intent.putExtra("total", Data.questions.size)
+                startActivity(intent)
+            } else {
+                no += 1
+                updateQuestionsAndAnswers()
             }
-            updateQuestionsAndAnswers()
         }
     }
 
@@ -75,15 +81,15 @@ class QuizActivity : AppCompatActivity() {
 
         clearAllButton()
         no_indicitor.text = (no+1).toString() + "/" + Data.questions.size.toString()
-        question.text = Data.questions[no].question
-        answer1Button.text = Data.questions[no].correctAnswer
-        answer2Button.text = Data.questions[no].incorrectAnswer1
-        answer3Button.text = Data.questions[no].incorrectAnswer2
-        answer4Button.text = Data.questions[no].incorrectAnswer3
+        question.text = HtmlCompat.fromHtml(Data.questions[no].question, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        answer1Button.text = HtmlCompat.fromHtml(Data.questions[no].correctAnswer, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        answer2Button.text = HtmlCompat.fromHtml(Data.questions[no].incorrectAnswer1, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        answer3Button.text = HtmlCompat.fromHtml(Data.questions[no].incorrectAnswer2, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        answer4Button.text = HtmlCompat.fromHtml(Data.questions[no].incorrectAnswer3, HtmlCompat.FROM_HTML_MODE_LEGACY)
     }
 
     private fun validateAnswers() {
-        if (choosenAnswer == Data.questions[no].correctAnswer) {
+        if (choosenAnswer == Data.questions[no-1].correctAnswer) {
             points += 1
         }
     }

@@ -3,6 +3,7 @@ package com.example.quiz
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -87,6 +88,7 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
     }
 
     private fun waitFun() = runBlocking {
+        Log.println(Log.WARN, "Chioce", Data.questions.toString())
         val delayCoroutine = launch {
             delay(1000)
         }
