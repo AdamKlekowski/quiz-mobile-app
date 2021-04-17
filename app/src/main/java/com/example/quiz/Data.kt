@@ -24,7 +24,7 @@ object Data {
         loadCategories()
     }
 
-    fun loadQuestions(category: String, numToDownload: Int) {
+    fun loadQuestions(category: String, numToDownload: String) {
         val url = "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s".format(
             numToDownload, categories[category], token)
         val tmpList = emptyList<Question>().toMutableList()

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ChoiceQuizTypeActivity">
 
 
     <LinearLayout
@@ -41,36 +41,49 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <Button
-            android:text="PLAY"
-            android:id="@+id/play_btn"
+        <Spinner
+            android:id="@+id/category"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
+            android:layout_margin="16dp"
+            android:padding="16dp"
             android:background="@drawable/menu_rounded_corner"
             android:backgroundTint="#FFFFFF" />
-        <Button
-            android:id="@+id/recordsButton"
-            android:text="RECORDS"
+        <Spinner
+            android:id="@+id/question_numbers"
             android:textColor="@android:color/black"
-            android:layout_margin="32dp"
+            android:layout_margin="16dp"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menu_rounded_corner"
+            android:backgroundTint="#FFFFFF" />
+
+        <Spinner
+            android:text="EXIT"
+            android:id="@+id/difficulty_level"
+            android:textColor="@android:color/black"
+            android:layout_margin="16dp"
+            android:padding="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/menu_rounded_corner"
             android:backgroundTint="#FFFFFF" />
 
         <Button
-            android:id="@+id/exitButton"
-            android:text="EXIT"
-            android:textColor="@android:color/black"
-            android:layout_margin="32dp"
+            android:id="@+id/play_btn"
+            android:text="PLAY"
+            android:textColor="@color/white"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/menu_rounded_corner"
-            android:backgroundTint="#FFFFFF" />
+            android:background="@drawable/rounded_corner"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints" />
 
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

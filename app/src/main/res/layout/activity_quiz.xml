@@ -82,6 +82,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
+            android:id="@+id/buttonA"
             android:text="OPTION A"
             android:textColor="@android:color/black"
             android:layout_width="match_parent"
@@ -90,6 +91,7 @@
             android:background="@drawable/rounded_button_corner"
             android:backgroundTint="#989898" />
         <Button
+            android:id="@+id/buttonB"
             android:text="OPTION B"
             android:textColor="@android:color/black"
             android:layout_margin="8dp"
@@ -98,6 +100,7 @@
             android:background="@drawable/rounded_button_corner"
             android:backgroundTint="#989898" />
         <Button
+            android:id="@+id/buttonC"
             android:text="OPTION C"
             android:textColor="@android:color/black"
             android:layout_margin="8dp"
@@ -106,6 +109,7 @@
             android:background="@drawable/rounded_button_corner"
             android:backgroundTint="#989898" />
         <Button
+            android:id="@+id/buttonD"
             android:text="OPTION D"
             android:textColor="@android:color/black"
             android:layout_margin="8dp"
