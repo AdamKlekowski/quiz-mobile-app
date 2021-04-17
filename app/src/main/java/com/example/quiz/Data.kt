@@ -1,26 +1,52 @@
 package com.example.quiz
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley.newRequestQueue
 
 object Data {
-    private lateinit var queue: RequestQueue
-    private lateinit var categories: Map<String, Int>
-    private var token: String? = null
+    lateinit var queue: RequestQueue
+    @Volatile
+    lateinit var categories: Map<String, Int>
+    @Volatile
+    var token: String? = null
+    @Volatile
+    var questions: List<Question> = emptyList()
 
 
     fun prepareData(context: Context) {
         queue = newRequestQueue(context)
+        queue.start()
         loadToken()
+        categories = emptyMap<String, Int>().toMutableMap()
         loadCategories()
     }
 
     fun loadQuestions(category: String, numToDownload: Int) {
-        TODO()
+        val url = "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s".format(
+            numToDownload, categories[category], token)
+        val tmpList = emptyList<Question>().toMutableList()
+
+        val tokenRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val questionsArray = response.getJSONArray("results")
+                for (i in 0 until questionsArray.length()) {
+                    val question = questionsArray.getJSONObject(i).getString("question")
+                    val correctAnswer = questionsArray.getJSONObject(i).getString("correct_answer")
+                    val incorrectAnswers = questionsArray.getJSONObject(i).getJSONArray("incorrect_answers")
+                    val incorrectAnswer1 = incorrectAnswers.getString(0)
+                    val incorrectAnswer2 = incorrectAnswers.getString(1)
+                    val incorrectAnswer3 = incorrectAnswers.getString(2)
+                    tmpList.add(Question(question, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3))
+                }
+                questions = tmpList
+            },
+            {
+            })
+        queue.add(tokenRequest)
     }
 
     private fun loadToken() {
@@ -30,7 +56,6 @@ object Data {
             Request.Method.GET, url, null,
             { response ->
                 token = response.getString("token")
-                Log.println(Log.DEBUG, "Data", token.toString())
             },
             {
             })
@@ -52,8 +77,6 @@ object Data {
                     tmpMap[name] = id
                 }
                 categories = tmpMap
-                Log.println(Log.DEBUG, "Data", categories.toString())
-
             },
             {
             })
