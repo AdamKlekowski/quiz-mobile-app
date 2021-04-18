@@ -4,9 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var question: TextView
@@ -19,6 +23,8 @@ class QuizActivity : AppCompatActivity() {
     private var choosenAnswer: String = ""
     private var no: Int = 0
     private var points: Int = 0
+    @Volatile
+    var questions: List<Question> = emptyList()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +68,7 @@ class QuizActivity : AppCompatActivity() {
         nextButton = findViewById(R.id.next_btn)
         nextButton.setOnClickListener {
             if (no >= Data.questions.size-1) {
+                validateAnswers()
                 val intent = Intent(this, ResultsActivity::class.java).apply {}
                 intent.putExtra("points", points)
                 intent.putExtra("total", Data.questions.size)

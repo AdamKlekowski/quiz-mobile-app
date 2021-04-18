@@ -1,10 +1,14 @@
 package com.example.quiz
 
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley.newRequestQueue
+
+
 
 object Data {
     lateinit var queue: RequestQueue
@@ -24,7 +28,7 @@ object Data {
         loadCategories()
     }
 
-    fun loadQuestions(category: String, numToDownload: String) {
+    fun loadQuestions(category: String, numToDownload: String, contect: Context, intent: Intent) {
         val url = "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s".format(
             numToDownload, categories[category], token)
         val tmpList = emptyList<Question>().toMutableList()
@@ -43,6 +47,7 @@ object Data {
                     tmpList.add(Question(question, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3))
                 }
                 questions = tmpList
+                contect.startActivity(intent)
             },
             {
             })

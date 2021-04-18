@@ -88,12 +88,10 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_btn)
         playButton.setOnClickListener {
-            Data.loadQuestions(selectedCategories, selectedNumber)
             val intent = Intent(this, QuizActivity::class.java).apply {}
-
-            waitFun()
-
-            startActivity(intent)
+            Data.loadQuestions(selectedCategories, selectedNumber, this, intent)
+//            waitFun()
+//            startActivity(intent)
         }
     }
 
