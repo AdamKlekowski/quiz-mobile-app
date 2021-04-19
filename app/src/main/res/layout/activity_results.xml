@@ -44,11 +44,12 @@
         <TextView
             android:text="You scored: "
             android:id="@+id/score"
-            android:textColor="@android:color/black"
+            android:textSize="24dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
-            android:background="@drawable/menu_rounded_corner"
             android:backgroundTint="#FFFFFF" />
 
 

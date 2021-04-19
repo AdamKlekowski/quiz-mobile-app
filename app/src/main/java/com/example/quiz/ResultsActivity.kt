@@ -1,7 +1,6 @@
 package com.example.quiz
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -21,16 +20,20 @@ class ResultsActivity : AppCompatActivity() {
         val total = intent.getIntExtra("total", 10)
 
         mainMsg = findViewById(R.id.results_main_msg)
-        mainMsg.text = if (points.toDouble()/total.toDouble() > 0.8) {
-            "Congratulations!"
-        } else if (points.toDouble()/total.toDouble() > 0.5) {
-            "Good!"
-        } else {
-            "Try once more!"
+        mainMsg.text = when {
+            points.toDouble()/total.toDouble() > 0.8 -> {
+                "Congratulations!"
+            }
+            points.toDouble()/total.toDouble() > 0.5 -> {
+                "Good!"
+            }
+            else -> {
+                "Try once more!"
+            }
         }
 
         score = findViewById(R.id.score)
-        score.text = "Your score: $points/$total points."
+        score.text = "$points/$total points"
 
         nextBtn = findViewById(R.id.back_to_main)
         nextBtn.setOnClickListener {

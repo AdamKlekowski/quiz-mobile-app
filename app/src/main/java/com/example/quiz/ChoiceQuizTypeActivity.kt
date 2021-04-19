@@ -1,15 +1,12 @@
 package com.example.quiz
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import kotlinx.coroutines.*
 
 class ChoiceQuizTypeActivity : AppCompatActivity() {
     private lateinit var categorySpinner: Spinner
@@ -89,7 +86,7 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_btn)
         playButton.setOnClickListener {
-            Data.loadQuestions(selectedCategories, selectedNumber, this)
+            Data.loadQuestions(selectedCategories, selectedNumber, selectedDifficulty, this)
         }
 
         backButton = findViewById(R.id.choice_back_btn)

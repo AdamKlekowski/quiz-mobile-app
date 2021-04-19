@@ -26,16 +26,16 @@ object Data {
         categories = emptyMap<String, Int>().toMutableMap()
     }
 
-    fun loadQuestions(category: String, numToDownload: String, contect: Context) {
-        val intent = Intent(contect, LoadingActivity::class.java).apply {}
-        contect.startActivity(intent)
+    fun loadQuestions(category: String, numToDownload: String, difficultyLevel: String, context: Context) {
+        val intent = Intent(context, LoadingActivity::class.java).apply {}
+        context.startActivity(intent)
 
         val url = if (token == null) {
-            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s".format(
-                numToDownload, categories[category])
+            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&difficulty=%s".format(
+                numToDownload, categories[category], difficultyLevel)
         } else {
-            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s".format(
-                numToDownload, categories[category], token)
+            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s&difficulty=%s".format(
+                numToDownload, categories[category], token, difficultyLevel)
         }
 
         val tmpList = emptyList<Question>().toMutableList()
@@ -54,8 +54,8 @@ object Data {
                     tmpList.add(Question(question, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3))
                 }
                 questions = tmpList
-                val quizIntent = Intent(contect, QuizActivity::class.java).apply {}
-                contect.startActivity(quizIntent)
+                val quizIntent = Intent(context, QuizActivity::class.java).apply {}
+                context.startActivity(quizIntent)
             },
             {
             })
