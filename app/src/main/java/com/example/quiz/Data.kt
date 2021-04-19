@@ -55,6 +55,7 @@ object Data {
                 }
                 questions = tmpList
                 val quizIntent = Intent(context, QuizActivity::class.java).apply {}
+                quizIntent.putExtra("difficultyLevel", difficultyLevel)
                 context.startActivity(quizIntent)
             },
             {

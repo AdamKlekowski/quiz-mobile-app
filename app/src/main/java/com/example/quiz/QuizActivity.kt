@@ -64,9 +64,11 @@ class QuizActivity : AppCompatActivity() {
             validateAnswers()
             no += 1
             if (no >= Data.questions.size) {
+                val difficultyLevel = intent.getStringExtra("difficultyLevel")
                 val intent = Intent(this, ResultsActivity::class.java).apply {}
                 intent.putExtra("points", points)
                 intent.putExtra("total", Data.questions.size)
+                intent.putExtra("difficultyLevel", difficultyLevel)
                 startActivity(intent)
                 finish()
             } else {

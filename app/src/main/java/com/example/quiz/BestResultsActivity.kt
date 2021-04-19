@@ -47,6 +47,7 @@ class BestResultsActivity : AppCompatActivity() {
             editor.putInt("top_score_medium", 0)
             editor.putInt("top_score_hard", 0)
             editor.apply()
+            this.recreate()
         }
     }
 }
