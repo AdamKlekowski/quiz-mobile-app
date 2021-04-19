@@ -61,15 +61,15 @@ class QuizActivity : AppCompatActivity() {
 
         nextButton = findViewById(R.id.next_btn)
         nextButton.setOnClickListener {
-            if (no >= Data.questions.size-1) {
-                validateAnswers()
+            validateAnswers()
+            no += 1
+            if (no >= Data.questions.size) {
                 val intent = Intent(this, ResultsActivity::class.java).apply {}
                 intent.putExtra("points", points)
                 intent.putExtra("total", Data.questions.size)
                 startActivity(intent)
                 finish()
             } else {
-                no += 1
                 updateQuestionsAndAnswers()
             }
         }
@@ -77,10 +77,6 @@ class QuizActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun updateQuestionsAndAnswers() {
-        if (no > 0) {
-            validateAnswers()
-        }
-
         clearAllButton()
         noIndicitor.text = (no+1).toString() + "/" + Data.questions.size.toString()
         question.text = HtmlCompat.fromHtml(Data.questions[no].question, HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -91,7 +87,7 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun validateAnswers() {
-        if (chosenAnswer == Data.questions[no-1].correctAnswer) {
+        if (chosenAnswer == Data.questions[no].correctAnswer) {
             points += 1
         }
     }
