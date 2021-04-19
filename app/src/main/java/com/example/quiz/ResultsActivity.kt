@@ -34,8 +34,7 @@ class ResultsActivity : AppCompatActivity() {
 
         nextBtn = findViewById(R.id.back_to_main)
         nextBtn.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java).apply {}
-            startActivity(intent)
+            finish()
         }
     }
 }

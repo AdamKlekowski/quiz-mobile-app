@@ -16,6 +16,7 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
     private lateinit var numbersSpinner: Spinner
     private lateinit var difficultySpinner: Spinner
     private lateinit var playButton: Button
+    private lateinit var backButton: Button
 
     private var selectedCategories: String = ""
     private var selectedNumber: String = ""
@@ -88,18 +89,13 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_btn)
         playButton.setOnClickListener {
-            val intent = Intent(this, QuizActivity::class.java).apply {}
-            Data.loadQuestions(selectedCategories, selectedNumber, this, intent)
-//            waitFun()
-//            startActivity(intent)
+            Data.loadQuestions(selectedCategories, selectedNumber, this)
+        }
+
+        backButton = findViewById(R.id.choice_back_btn)
+        backButton.setOnClickListener {
+            finish()
         }
     }
 
-    private fun waitFun() = runBlocking {
-        Log.println(Log.WARN, "Chioce", Data.questions.toString())
-        val delayCoroutine = launch {
-            delay(1000)
-        }
-        delayCoroutine.join()
-    }
 }

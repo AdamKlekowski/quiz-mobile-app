@@ -19,8 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         playBtn = findViewById(R.id.play_btn)
         playBtn.setOnClickListener {
-            val intent = Intent(this, ChoiceQuizTypeActivity::class.java).apply {}
-            startActivity(intent)
+            Data.loadCategories(this)
         }
 
         recordsBtn = findViewById(R.id.recordsButton)
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         exitBtn = findViewById(R.id.exitButton)
         exitBtn.setOnClickListener {
-            android.os.Process.killProcess(android.os.Process.myPid())
+            finish()
         }
     }
 }
