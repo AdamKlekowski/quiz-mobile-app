@@ -1,5 +1,6 @@
 package com.example.quiz
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -22,7 +23,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         recordsBtn = findViewById(R.id.recordsButton)
-        recordsBtn.setOnClickListener {  }
+        recordsBtn.setOnClickListener {
+            val intent = Intent(this, BestResultsActivity::class.java).apply {}
+            this.startActivity(intent)
+        }
 
         exitBtn = findViewById(R.id.exitButton)
         exitBtn.setOnClickListener {

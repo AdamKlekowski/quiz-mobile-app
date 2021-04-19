@@ -1,10 +1,12 @@
 package com.example.quiz
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
 
 class ResultsActivity : AppCompatActivity() {
     private lateinit var mainMsg: TextView
@@ -34,6 +36,11 @@ class ResultsActivity : AppCompatActivity() {
 
         score = findViewById(R.id.score)
         score.text = "$points/$total points"
+
+        val prefs = getSharedPreferences("myPrefsKey", Context.MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putInt("key", ((points/total)*100))
+        editor.apply()
 
         nextBtn = findViewById(R.id.back_to_main)
         nextBtn.setOnClickListener {

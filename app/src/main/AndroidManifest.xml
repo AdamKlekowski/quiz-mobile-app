@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Quiz"
         tools:targetApi="n">
         <activity
+            android:name=".BestResultsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".NetwrokErrorAcitivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
