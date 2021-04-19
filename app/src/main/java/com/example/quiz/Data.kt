@@ -58,6 +58,8 @@ object Data {
                 context.startActivity(quizIntent)
             },
             {
+                val quizIntent = Intent(context, NetwrokErrorAcitivity::class.java).apply {}
+                context.startActivity(quizIntent)
             })
         queue.add(tokenRequest)
     }
@@ -75,9 +77,9 @@ object Data {
         queue.add(tokenRequest)
     }
 
-    fun loadCategories(contect: Context) {
-        val intent = Intent(contect, LoadingActivity::class.java).apply {}
-        contect.startActivity(intent)
+    fun loadCategories(context: Context) {
+        val intent = Intent(context, LoadingActivity::class.java).apply {}
+        context.startActivity(intent)
 
         val url = "https://opentdb.com/api_category.php"
         val tmpMap = emptyMap<String, Int>().toMutableMap()
@@ -93,10 +95,12 @@ object Data {
                     tmpMap[name] = id
                 }
                 categories = tmpMap
-                val quizIntent = Intent(contect, ChoiceQuizTypeActivity::class.java).apply {}
-                contect.startActivity(quizIntent)
+                val quizIntent = Intent(context, ChoiceQuizTypeActivity::class.java).apply {}
+                context.startActivity(quizIntent)
             },
             {
+                val quizIntent = Intent(context, NetwrokErrorAcitivity::class.java).apply {}
+                context.startActivity(quizIntent)
             })
         queue.add(categoriesRequest)
     }
