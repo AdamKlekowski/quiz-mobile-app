@@ -1,13 +1,16 @@
 package com.example.quiz
 
 import android.content.Context
+import android.content.Intent
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley.newRequestQueue
 
+
+
 object Data {
-    lateinit var queue: RequestQueue
+    private lateinit var queue: RequestQueue
     @Volatile
     lateinit var categories: Map<String, Int>
     @Volatile
@@ -21,12 +24,20 @@ object Data {
         queue.start()
         loadToken()
         categories = emptyMap<String, Int>().toMutableMap()
-        loadCategories()
     }
 
-    fun loadQuestions(category: String, numToDownload: String) {
-        val url = "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s".format(
-            numToDownload, categories[category], token)
+    fun loadQuestions(category: String, numToDownload: String, difficultyLevel: String, context: Context) {
+        val intent = Intent(context, LoadingActivity::class.java).apply {}
+        context.startActivity(intent)
+
+        val url = if (token == null) {
+            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&difficulty=%s".format(
+                numToDownload, categories[category], difficultyLevel)
+        } else {
+            "https://opentdb.com/api.php?amount=%s&type=multiple&category=%s&token=%s&difficulty=%s".format(
+                numToDownload, categories[category], token, difficultyLevel)
+        }
+
         val tmpList = emptyList<Question>().toMutableList()
 
         val tokenRequest = JsonObjectRequest(
@@ -43,8 +54,13 @@ object Data {
                     tmpList.add(Question(question, correctAnswer, incorrectAnswer1, incorrectAnswer2, incorrectAnswer3))
                 }
                 questions = tmpList
+                val quizIntent = Intent(context, QuizActivity::class.java).apply {}
+                quizIntent.putExtra("difficultyLevel", difficultyLevel)
+                context.startActivity(quizIntent)
             },
             {
+                val quizIntent = Intent(context, NetwrokErrorAcitivity::class.java).apply {}
+                context.startActivity(quizIntent)
             })
         queue.add(tokenRequest)
     }
@@ -62,7 +78,10 @@ object Data {
         queue.add(tokenRequest)
     }
 
-    private fun loadCategories() {
+    fun loadCategories(context: Context) {
+        val intent = Intent(context, LoadingActivity::class.java).apply {}
+        context.startActivity(intent)
+
         val url = "https://opentdb.com/api_category.php"
         val tmpMap = emptyMap<String, Int>().toMutableMap()
 
@@ -77,8 +96,12 @@ object Data {
                     tmpMap[name] = id
                 }
                 categories = tmpMap
+                val quizIntent = Intent(context, ChoiceQuizTypeActivity::class.java).apply {}
+                context.startActivity(quizIntent)
             },
             {
+                val quizIntent = Intent(context, NetwrokErrorAcitivity::class.java).apply {}
+                context.startActivity(quizIntent)
             })
         queue.add(categoriesRequest)
     }

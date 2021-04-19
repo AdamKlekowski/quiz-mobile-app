@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Quiz App</string>
     <string name="no_indiccator">1/100</string>
+    <string name="error_network_msg">NETWORK ERROR</string>
 </resources>

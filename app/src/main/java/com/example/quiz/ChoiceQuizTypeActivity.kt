@@ -1,21 +1,19 @@
 package com.example.quiz
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import kotlinx.coroutines.*
 
 class ChoiceQuizTypeActivity : AppCompatActivity() {
     private lateinit var categorySpinner: Spinner
     private lateinit var numbersSpinner: Spinner
     private lateinit var difficultySpinner: Spinner
     private lateinit var playButton: Button
+    private lateinit var backButton: Button
 
     private var selectedCategories: String = ""
     private var selectedNumber: String = ""
@@ -88,20 +86,13 @@ class ChoiceQuizTypeActivity : AppCompatActivity() {
 
         playButton = findViewById(R.id.play_btn)
         playButton.setOnClickListener {
-            Data.loadQuestions(selectedCategories, selectedNumber)
-            val intent = Intent(this, QuizActivity::class.java).apply {}
+            Data.loadQuestions(selectedCategories, selectedNumber, selectedDifficulty, this)
+        }
 
-            waitFun()
-
-            startActivity(intent)
+        backButton = findViewById(R.id.choice_back_btn)
+        backButton.setOnClickListener {
+            finish()
         }
     }
 
-    private fun waitFun() = runBlocking {
-        Log.println(Log.WARN, "Chioce", Data.questions.toString())
-        val delayCoroutine = launch {
-            delay(1000)
-        }
-        delayCoroutine.join()
-    }
 }
